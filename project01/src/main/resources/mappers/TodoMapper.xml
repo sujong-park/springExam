@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.busanit501.project01.mapper.TodoMapper">
+<mapper namespace="com.busanit501.springex.mapper.TodoMapper">
     <select id="getTime" resultType="string">
         select now()
     </select>
@@ -15,13 +15,13 @@
     </insert>
 
     <!--    여러개 행 조회, 각행의 요소, TodoVO , -->
-    <select id="selectAll" resultType="com.busanit501.project01.domain.TodoVO">
+    <select id="selectAll" resultType="com.busanit501.springex.domain.TodoVO">
         select *
         from tbl_todo
         order by tno desc
     </select>
 
-    <select id="selectOne" resultType="com.busanit501.project01.domain.TodoVO">
+    <select id="selectOne" resultType="com.busanit501.springex.domain.TodoVO">
         select *
         from tbl_todo
         where tno = #{tno}
@@ -43,7 +43,7 @@
 
     <!--    페이징 처리해서, 전체 조회-->
     <!--    #{skip} -> 동작을 getSkip() -->
-    <!--    <select id="selectList" resultType="com.busanit501.project01.domain.TodoVO">-->
+    <!--    <select id="selectList" resultType="com.busanit501.springex.domain.TodoVO">-->
     <!--        select * from tbl_todo order by tno desc limit #{skip}, #{size}-->
     <!--    </select>-->
 
@@ -53,65 +53,65 @@
     <!--     첫번째 조건에서 생성된 sql-->
     <!--     select * from tbl_todo ? ? order by tno desc limit ?, ?-->
 
-<!--     2번째 과정,-->
-<!--    select * from tbl_todo ? ? -->
-<!--     title like concat('%',?,'%')-->
-<!--     writer like concat('%',?,'%')-->
-<!--     order by tno desc limit ?, ?-->
+    <!--     2번째 과정,-->
+    <!--    select * from tbl_todo ? ? -->
+    <!--     title like concat('%',?,'%')-->
+    <!--     writer like concat('%',?,'%')-->
+    <!--     order by tno desc limit ?, ?-->
 
-<!--    3번째 과정-->
-<!--    select * from tbl_todo -->
-<!--    ( title like concat('%',?,'%') -->
-<!--    OR -->
-<!--    writer like concat('%',?,'%') ) -->
-<!--    order by tno desc limit ?, ?-->
+    <!--    3번째 과정-->
+    <!--    select * from tbl_todo -->
+    <!--    ( title like concat('%',?,'%') -->
+    <!--    OR -->
+    <!--    writer like concat('%',?,'%') ) -->
+    <!--    order by tno desc limit ?, ?-->
 
-<!--    4번째 과정-->
-<!--    select * from tbl_todo-->
-<!--    WHERE-->
-<!--    (-->
-<!--    title like concat('%',?,'%')-->
-<!--    OR-->
-<!--    writer like concat('%',?,'%')-->
-<!--    )-->
-<!--    order by tno desc limit ?, ?-->
+    <!--    4번째 과정-->
+    <!--    select * from tbl_todo-->
+    <!--    WHERE-->
+    <!--    (-->
+    <!--    title like concat('%',?,'%')-->
+    <!--    OR-->
+    <!--    writer like concat('%',?,'%')-->
+    <!--    )-->
+    <!--    order by tno desc limit ?, ?-->
 
-<!--    4번째 과정 2, types null 일경우, where 조건이 없는 sql 문장 확인.-->
-<!--    select * from tbl_todo order by tno desc limit ?, ?-->
+    <!--    4번째 과정 2, types null 일경우, where 조건이 없는 sql 문장 확인.-->
+    <!--    select * from tbl_todo order by tno desc limit ?, ?-->
 
-<!--    5번째 과정, 필터 과정. -->
-<!--    trim 이용해서, -->
-<!--    앞에 where  조건이 있다면, trim 이용해서 and 붙이고,-->
-<!--    예시-->
-<!--    elect * from tbl_todo WHERE ( title like concat('%',?,'%') -->
-<!--    OR writer like concat('%',?,'%') ) -->
-<!--    and finished = 1 order by tno desc limit ?, ?-->
-<!--    -->
-<!--    앞에 where  조건이 없다면, trim 이용해서 and 안 붙이고,-->
-<!--    select * from tbl_todo -->
-<!--    WHERE finished = 1 order by tno desc limit ?, ?-->
+    <!--    5번째 과정, 필터 과정. -->
+    <!--    trim 이용해서, -->
+    <!--    앞에 where  조건이 있다면, trim 이용해서 and 붙이고,-->
+    <!--    예시-->
+    <!--    elect * from tbl_todo WHERE ( title like concat('%',?,'%') -->
+    <!--    OR writer like concat('%',?,'%') ) -->
+    <!--    and finished = 1 order by tno desc limit ?, ?-->
+    <!--    -->
+    <!--    앞에 where  조건이 없다면, trim 이용해서 and 안 붙이고,-->
+    <!--    select * from tbl_todo -->
+    <!--    WHERE finished = 1 order by tno desc limit ?, ?-->
 
-<!--    6번째 필터2, 기한 from, to 를 조건으로 할 때,-->
-<!--    select * from tbl_todo -->
-<!--    WHERE finished = 1 and dueDate between ? and ? order by tno desc limit ?, ?-->
+    <!--    6번째 필터2, 기한 from, to 를 조건으로 할 때,-->
+    <!--    select * from tbl_todo -->
+    <!--    WHERE finished = 1 and dueDate between ? and ? order by tno desc limit ?, ?-->
 
-<!--    6번째 필터2, 필터 조건 1개인 경우, and 없는 부분 확인-->
-<!--    select * from tbl_todo -->
-<!--    WHERE dueDate between ? and ? order by tno desc limit ?, ?-->
+    <!--    6번째 필터2, 필터 조건 1개인 경우, and 없는 부분 확인-->
+    <!--    select * from tbl_todo -->
+    <!--    WHERE dueDate between ? and ? order by tno desc limit ?, ?-->
 
-<!--    완성된 sql, 최종 문장 구조-->
-<!--    select * from tbl_todo -->
-<!--    WHERE -->
-<!--    ( -->
-<!--    title like concat('%',?,'%') -->
-<!--    OR -->
-<!--    writer like concat('%',?,'%') -->
-<!--    ) -->
-<!--    and finished = 1 -->
-<!--    and dueDate between ? and ? -->
-<!--    order by tno desc limit ?, ?-->
+    <!--    완성된 sql, 최종 문장 구조-->
+    <!--    select * from tbl_todo -->
+    <!--    WHERE -->
+    <!--    ( -->
+    <!--    title like concat('%',?,'%') -->
+    <!--    OR -->
+    <!--    writer like concat('%',?,'%') -->
+    <!--    ) -->
+    <!--    and finished = 1 -->
+    <!--    and dueDate between ? and ? -->
+    <!--    order by tno desc limit ?, ?-->
 
-    <select id="selectList" resultType="com.busanit501.project01.domain.TodoVO">
+    <select id="selectList" resultType="com.busanit501.springex.domain.TodoVO">
         select * from tbl_todo
         <include refid="search"></include>
         order by tno desc limit #{skip}, #{size}
@@ -153,9 +153,7 @@
         </where>
     </sql>
 
-
 </mapper>
-
 
 
 

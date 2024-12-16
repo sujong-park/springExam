@@ -3,7 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-
+    <!--    스프링 MVC 도구를 , build.gradle  추가후, 리스너를 시스템에 등록하는 과정-->
+    <!--    리스너, 프레임워크 하위 전체에서, 접근이 가능한 설정을 하는게, -> 공유자원.-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/root-context.xml</param-value>
@@ -12,6 +13,13 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    <!--    스프링 MVC 도구를 , build.gradle  추가후, 리스너를 시스템에 등록하는 과정-->
+
+<!--    서블릿 설정 파일 위치를 등록. -->
+<!--    웹브라우저의 최상위 루트 경로 까지 추가 및 적용. -->
+    <!--  스프링 mvc 관련 설정을 등록하기, 서블릿 관련 설정-->
+<!--    웹브라우저에서 , 특정 경로 url 호출하면, 디스패처 서블릿 먼저 받아서, -->
+<!--    어느 컨트롤러 갈지 정해준다.-->
 
     <servlet>
         <servlet-name>appServlet</servlet-name>
@@ -21,7 +29,7 @@
             <param-value>/WEB-INF/servlet-context.xml</param-value>
         </init-param>
         <!--    404 not found 발생시, 전달할 페이지 위치 등록-->
-        <!--        적용해야, 원래 페이지가 존재 하지 않을 때, 설정한 페이지로 확인 됨-->
+<!--        적용해야, 원래 페이지가 존재 하지 않을 때, 설정한 페이지로 확인 됨-->
         <init-param>
             <param-name>throwExceptionIfNoHandlerFound</param-name>
             <param-value>true</param-value>
@@ -37,7 +45,7 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-    <!--    웹브라우저로부터 들어온 데이터 인코딩 타입 UTF-8 설정.-->
+<!--    웹브라우저로부터 들어온 데이터 인코딩 타입 UTF-8 설정.-->
     <filter>
         <filter-name>
             encoding

@@ -14,7 +14,7 @@
     <!--    <bean class="com.busanit501.springex.SampleService"></bean>-->
 
     <!--    통으로 패키지 등록하기. -->
-    <context:component-scan base-package="com.busanit501.project01"/>
+    <context:component-scan base-package="com.busanit501.springex.sample"/>
 
     <!--    핵심 역할을 하는 디비 연결 풀, 시스템에 인스턴스로 등록-->
 <!--    HikaryConfig hikariConfig = new hikariConfig();-->
@@ -43,7 +43,11 @@
         <constructor-arg ref="hikariConfig"/>
     </bean>
 
-    <!-- Mybatis -->
+<!--    Mybatis  기능을 , 전역 설정에 등록해서 이용할 준비. -->
+<!--    resource 폴더는 전체 설정 관련 접근을 위한 폴더이고, 접근시, classpath 접근 가능함,-->
+<!--    /mappers/** , **  의미, mappers 폴더 밑에 아무 폴더 추가해도 상관없음.-->
+<!--    *.xml , 모든 xml 파일을 다 가리킴-->
+<!--     WEB-INF 하위에서 resources ,  css,js,image 등, 웹브라우저에게 제공하는 목적으로 사용함.-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath:/mappers/**/*.xml"></property>
@@ -53,11 +57,11 @@
 <!--    시스템에서, 해당 패키지의 애너테이션 존재 유무를 몰라요, -->
 <!--    그래서, 시스템에 등록해서 이용해야함. -->
 <!--    결론, 우리는 이방식으로 안하고, 파일 분리 형식으로 작업 할 예정. -->
-    <mybatis:scan base-package="com.busanit501.project01.mapper"></mybatis:scan>
+    <mybatis:scan base-package="com.busanit501.springex.mapper"></mybatis:scan>
 
 <!--    모델 맵퍼 설정 클래스 경로 추가 -> @Configuration 애너테이션이용 가능.-->
-    <context:component-scan base-package="com.busanit501.project01.config"/>
-    <context:component-scan base-package="com.busanit501.project01.service"/>
+    <context:component-scan base-package="com.busanit501.springex.config"/>
+    <context:component-scan base-package="com.busanit501.springex.service"/>
 
 
 </beans>
