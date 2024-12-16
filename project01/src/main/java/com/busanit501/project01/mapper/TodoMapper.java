@@ -6,9 +6,7 @@ import com.busanit501.project01.dto.PageRequestDTO;
 import java.util.List;
 
 public interface TodoMapper {
-
-    String getTime();
-
+    
     void insert(TodoVO todoVO);
 
     List<TodoVO> selectAll();
